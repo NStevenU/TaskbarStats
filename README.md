@@ -32,7 +32,7 @@
 - **Any sensor on the taskbar**: pick any temperature, fan, load, clock or power sensor for a readout, bar, graph or ring.
 - **Fluent settings window** (Mica) with drag-and-drop layout, font, size and weight, °C / °F, and rpm units.
 - **Light on resources**: sensors are read only while something shows them, popups collect data only while open, and the idle footprint stays small.
-- **Boot Camp Macs**: temperatures and fans through Apple's SMC driver (read only, off by default).
+- **Boot Camp Macs**: temperatures and fans through Apple's SMC driver (read only). Switched on automatically the first time the driver is detected.
 
 ## Install
 

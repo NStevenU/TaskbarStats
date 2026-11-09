@@ -210,9 +210,9 @@ internal static class ModuleFactory
                 if (IsGraph(name) && Fmt.ParseKey(name[2..]) is { } gk)
                     return name[0] switch
                     {
-                        'b' => new BarItem(gk),
-                        'h' => new HistoryItem(gk),
-                        _ => new CircleItem(gk),
+                        'b' => new BarItem(gk, 16f, Geo.SensorGraphMaxH),
+                        'h' => new HistoryItem(gk, false, Geo.SensorGraphMaxH),
+                        _ => new CircleItem(gk, Geo.SensorGraphMaxH),
                     };
                 return null;
         }

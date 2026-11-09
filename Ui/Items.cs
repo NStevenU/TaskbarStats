@@ -11,6 +11,7 @@ internal static class Geo
     public const float HeightOneRow = 36f, HeightTwoRows = 44f;
     public const float PadVOneRow = 4f, PadVTwoRows = 2f;
     public const float RowGap = 2f;
+    public const float SensorGraphMaxH = 14f;   // bars / graphs / rings of the Sensors module stay this tall, centred in the lane
 
     public const float ItemGap = 4f;      // between items of one module
     public const float ModuleGap = 10f;   // between modules of one row
@@ -241,10 +242,12 @@ internal sealed class HistoryItem : IItem
     readonly float[] _ring = new float[Samples];
     int _head;
     bool _auto, _frozen;
+    readonly float _maxH;
 
     /// <param name="auto">Scale to the largest recent value (throughput) instead of 0..100.</param>
-    public HistoryItem(SensorKey key, bool auto = false)
+    public HistoryItem(SensorKey key, bool auto = false, float maxH = 0)
     {
+        _maxH = maxH;
         _key = key;
         _auto = auto;
         Needs = new[] { key };
@@ -275,6 +278,7 @@ internal sealed class HistoryItem : IItem
 
     public void Draw(Graphics g, float x, float y, float h, Theme t)
     {
+        if (_maxH > 0 && h > _maxH) { y += (h - _maxH) / 2; h = _maxH; }
         ItemUtil.Box(g, x, y, W, h, t);
 
         float inner = h - 2 * Pad, iw = W - 2 * Pad;
@@ -303,8 +307,11 @@ internal sealed class BarItem : IItem
     readonly SensorKey _key;
     int _fill;
 
-    public BarItem(SensorKey key, float width = 16f)
+    readonly float _maxH;
+
+    public BarItem(SensorKey key, float width = 16f, float maxH = 0)
     {
+        _maxH = maxH;
         _key = key;
         W = width;
         Needs = new[] { key };
@@ -317,6 +324,7 @@ internal sealed class BarItem : IItem
 
     public void Draw(Graphics g, float x, float y, float h, Theme t)
     {
+        if (_maxH > 0 && h > _maxH) { y += (h - _maxH) / 2; h = _maxH; }
         ItemUtil.Box(g, x, y, W, h, t);
         float inner = h - 2 * Pad;
         float frac = _fill / (float)ItemUtil.Steps;
@@ -333,8 +341,11 @@ internal sealed class CircleItem : IItem
     readonly SensorKey _key;
     int _fill;
 
-    public CircleItem(SensorKey key)
+    readonly float _maxH;
+
+    public CircleItem(SensorKey key, float maxH = 0)
     {
+        _maxH = maxH;
         _key = key;
         Needs = new[] { key };
     }
@@ -346,7 +357,7 @@ internal sealed class CircleItem : IItem
 
     public void Draw(Graphics g, float x, float y, float h, Theme t)
     {
-        float d = Math.Min(D, h);
+        float d = Math.Min(D, _maxH > 0 ? Math.Min(h, _maxH) : h);
         var r = new RectangleF(x + (D - d) / 2 + Stroke / 2, y + (h - d) / 2 + Stroke / 2, d - Stroke, d - Stroke);
         float frac = _fill / (float)ItemUtil.Steps;
         using var track = new Pen(Color.FromArgb(60, t.Fg), Stroke);
@@ -387,7 +398,7 @@ internal sealed class TextItem : IItem
 /// </summary>
 internal sealed class GridItem : IItem
 {
-    const float ColGap = 6f, LineH = 11f, EmptyColW = 14f;
+    const float ColGap = 6f, LineH = 9.5f, EmptyColW = 14f;
 
     readonly SensorKey?[][] _rows;
     readonly string[][] _text;
@@ -409,7 +420,7 @@ internal sealed class GridItem : IItem
     {
         float w = 0;
         foreach (var r in _rows)
-            if (col < r.Length && r[col] is { } k) w = Math.Max(w, Theme.TextWidth(Fmt.Template(k), t.Value));
+            if (col < r.Length && r[col] is { } k) w = Math.Max(w, Theme.TextWidth(Fmt.Template(k), t.ValueSmall));
         return w > 0 ? w : EmptyColW;
     }
 
@@ -439,7 +450,7 @@ internal sealed class GridItem : IItem
             float cw = ColWidth(c, t);
             for (int r = 0; r < _rows.Length; r++)
                 if (c < _rows[r].Length && _rows[r][c].HasValue)
-                    g.DrawString(_text[r][c], t.Value, br, new RectangleF(cx, y + r * rowH, cw, rowH), ItemUtil.Center);
+                    g.DrawString(_text[r][c], t.ValueSmall, br, new RectangleF(cx, y + r * rowH, cw, rowH), ItemUtil.Center);
             cx += cw + ColGap;
         }
     }

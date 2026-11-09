@@ -51,44 +51,66 @@ Filename: "{app}\TaskbarStats.exe"; Parameters: "--autostart off"; Flags: runhid
 
 [Code]
 const
-  // Pinned official release (the same file winget installs). Update both lines together when a new PawnIO ships.
+  // Pinned official release (the same file winget installs). Update the URLs and the checksum together when a new PawnIO ships.
+  // The API address is tried first: github.com/.../releases/download answers HEAD (Inno's own downloader) and, at times,
+  // plain GET requests too with "504 Gateway Time-out", while the API address keeps working.
+  PawnIoApiUrl = 'https://api.github.com/repos/namazso/PawnIO.Setup/releases/assets/374375077';
   PawnIoUrl = 'https://github.com/namazso/PawnIO.Setup/releases/download/2.2.0/PawnIO_setup.exe';
   PawnIoSha256 = '1f519a22e47187f70a1379a48ca604981c4fcf694f4e65b734aaa74a9fba3032';
 
-// Plain GET through curl.exe (ships with Windows 10 1803+ and 11). Inno's built-in downloader probes the URL with a
-// HEAD request first, and GitHub's release endpoint answers HEAD with "504 Gateway Time-out", so it cannot be used here.
-function DownloadPawnIo(const Dest: String; var Err: String): Boolean;
+// One download attempt through curl.exe (ships with Windows 10 1803+ and 11). Err describes the failure.
+function CurlGet(const Url, Headers, Dest: String; var Err: String): Boolean;
 var
-  Curl: String;
+  Curl, Log, Code: String;
+  Raw: AnsiString;
   ResultCode: Integer;
 begin
   Result := False;
-  Err := '';
   Curl := ExpandConstant('{sys}\curl.exe');
+  Log := ExpandConstant('{tmp}\curl_status.txt');
   if not FileExists(Curl) then
   begin
     Err := 'curl.exe was not found';
     Exit;
   end;
   DeleteFile(Dest);
-  if not Exec(Curl, '-fsSL --retry 3 --retry-delay 2 --connect-timeout 20 --max-time 180 -o "' + Dest + '" "' + PawnIoUrl + '"',
-              '', SW_HIDE, ewWaitUntilTerminated, ResultCode) then
+  DeleteFile(Log);
+  if not Exec(ExpandConstant('{cmd}'),
+      '/c ""' + Curl + '" -sSL --retry 3 --retry-delay 2 --connect-timeout 20 --max-time 180 ' + Headers +
+      ' -o "' + Dest + '" -w "%{http_code}" "' + Url + '" > "' + Log + '" 2>&1"',
+      '', SW_HIDE, ewWaitUntilTerminated, ResultCode) then
   begin
     Err := 'curl.exe could not be started';
     Exit;
   end;
-  if ResultCode <> 0 then
+  Code := '';
+  if LoadStringFromFile(Log, Raw) then Code := Trim(String(Raw));
+  if (ResultCode <> 0) or (Code <> '200') or not FileExists(Dest) then
   begin
-    Err := 'curl error ' + IntToStr(ResultCode);
+    if Code = '' then Code := 'curl error ' + IntToStr(ResultCode);
+    Err := 'HTTP ' + Code;
+    DeleteFile(Dest);
     Exit;
   end;
-  if not FileExists(Dest) or (CompareText(GetSHA256OfFile(Dest), PawnIoSha256) <> 0) then
+  if CompareText(GetSHA256OfFile(Dest), PawnIoSha256) <> 0 then
   begin
     Err := 'the downloaded file did not match the expected checksum';
     DeleteFile(Dest);
     Exit;
   end;
   Result := True;
+end;
+
+function DownloadPawnIo(const Dest: String; var Err: String): Boolean;
+var
+  Err2: String;
+begin
+  Result := CurlGet(PawnIoApiUrl, '-H "Accept: application/octet-stream"', Dest, Err);
+  if not Result then
+  begin
+    Result := CurlGet(PawnIoUrl, '', Dest, Err2);
+    if not Result then Err := Err + ' / ' + Err2;
+  end;
 end;
 
 procedure CurStepChanged(CurStep: TSetupStep);

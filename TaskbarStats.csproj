@@ -12,7 +12,7 @@
     <ApplicationIcon>Assets\app.ico</ApplicationIcon>
     <RootNamespace>TaskbarStats</RootNamespace>
     <AssemblyName>TaskbarStats</AssemblyName>
-    <Version>1.0.1</Version>
+    <Version>1.0.2</Version>
 
     <!-- Keep the resident footprint small -->
     <InvariantGlobalization>true</InvariantGlobalization>

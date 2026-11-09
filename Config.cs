@@ -69,6 +69,9 @@ public sealed class AppConfig
     /// <summary>How many processes the popup lists.</summary>
     public int ProcessCount { get; set; } = 5;
 
+    /// <summary>Set once the Apple SMC driver has been seen and the component switched on automatically.</summary>
+    public bool SmcAutoChecked { get; set; }
+
     /// <summary>left | center | right, relative to the taskbar.</summary>
     public string Anchor { get; set; } = "left";
 

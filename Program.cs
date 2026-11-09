@@ -34,7 +34,15 @@ internal static class Program
         hub.Add(new NetProvider());
         hub.Add(new LhmCpuProvider());
         hub.Add(new LhmCustomProvider());
-        hub.Add(new SmcProvider());          // last: it only fills what the others could not
+        var smc = new SmcProvider();
+        hub.Add(smc);                        // last: it only fills what the others could not
+        // First time Apple's SMC driver is seen (Boot Camp Mac): switch the component on, once. Turning it off later sticks.
+        if (ci < 0 && !cfg.SmcAutoChecked && smc.Available == true)
+        {
+            cfg.DisabledComponents.RemoveAll(c => c == "smc");
+            cfg.SmcAutoChecked = true;
+            cfg.Save();
+        }
         hub.SetDisabled(cfg.DisabledComponents);
 
         var mods = BuildModules(cfg);

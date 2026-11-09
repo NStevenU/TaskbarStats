@@ -19,6 +19,9 @@ public sealed class Theme : IDisposable
     public Font Value { get; }
     public Font ValueLarge { get; }
 
+    /// <summary>Two stacked lines (net speeds, double readouts) must fit one lane of the two-row widget.</summary>
+    public Font ValueSmall { get; }
+
     readonly FontFamily _family;
     FontFamily? _valFamily;
     readonly FontStyle _labelStyle;
@@ -53,6 +56,7 @@ public sealed class Theme : IDisposable
                   : fam.IsStyleAvailable(FontStyle.Regular) ? FontStyle.Regular : FontStyle.Bold;
         Value = new Font(fam, s_size, style, GraphicsUnit.Pixel);
         ValueLarge = new Font(fam, s_size * 1.25f, style, GraphicsUnit.Pixel);
+        ValueSmall = new Font(fam, Math.Min(s_size * 0.9f, 9.2f), style, GraphicsUnit.Pixel);
     }
 
     /// <summary>Stacked-letter label font, sized to the room one letter gets.</summary>
@@ -127,6 +131,7 @@ public sealed class Theme : IDisposable
     {
         Value.Dispose();
         ValueLarge.Dispose();
+        ValueSmall.Dispose();
         _valFamily?.Dispose();
         foreach (var f in _labelFonts.Values) f.Dispose();
         _labelFonts.Clear();
