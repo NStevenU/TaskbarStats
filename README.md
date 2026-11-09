@@ -17,17 +17,51 @@
   <img src="docs/widget.png" alt="Widget on the taskbar">
 </p>
 
+## Introduction
+
+TaskbarStats puts your system's vitals right on the Windows 11 taskbar. Pick what you want to see — usage, temperature, fan speed, or any sensor — and arrange it in two lanes. Click a module and a popup shows the details: per-core load, top processes, drives, adapters and every sensor. It reads hardware only while something is showing it, so it stays light. Boot Camp Macs are supported through Apple's SMC.
+
+## Why I made this
+
+macOS has many polished, feature-rich monitoring apps. On Windows, I couldn't find one I liked — they were either missing features or not flexible enough. So I built my own.
+
+The idea comes from those macOS monitoring apps, and TaskbarStats is my take on bringing that experience to the Windows taskbar.
+
+## Popups
+
+Click a module on the taskbar to open its popup.
+
+<table>
+  <tr>
+    <td align="center" valign="top"><a href="docs/cpu.png"><img src="docs/cpu.png" width="250" alt="CPU"></a><br><sub>CPU</sub></td>
+    <td align="center" valign="top"><a href="docs/gpu.png"><img src="docs/gpu.png" width="250" alt="GPU"></a><br><sub>GPU</sub></td>
+    <td align="center" valign="top"><a href="docs/mem.png"><img src="docs/mem.png" width="250" alt="Memory"></a><br><sub>Memory</sub></td>
+  </tr>
+  <tr>
+    <td align="center" valign="top"><a href="docs/dsk.png"><img src="docs/dsk.png" width="250" alt="Disks"></a><br><sub>Disks</sub></td>
+    <td align="center" valign="top"><a href="docs/net.png"><img src="docs/net.png" width="250" alt="Network"></a><br><sub>Network</sub></td>
+    <td align="center" valign="top"><a href="docs/sen.png"><img src="docs/sen.png" width="250" alt="Sensors"></a><br><sub>Sensors</sub></td>
+  </tr>
+</table>
+
+## Settings
+
+<table>
+  <tr>
+    <td align="center" valign="top"><a href="docs/set-general.png"><img src="docs/set-general.png" width="420" alt="General"></a><br><sub>General</sub></td>
+    <td align="center" valign="top"><a href="docs/set-cpu.png"><img src="docs/set-cpu.png" width="420" alt="Drag-and-drop modules"></a><br><sub>Drag-and-drop modules</sub></td>
+  </tr>
+  <tr>
+    <td align="center" valign="top"><a href="docs/set-sen.png"><img src="docs/set-sen.png" width="420" alt="Pick any sensor"></a><br><sub>Pick any sensor</sub></td>
+    <td align="center" valign="top"><a href="docs/set-about.png"><img src="docs/set-about.png" width="420" alt="About"></a><br><sub>About</sub></td>
+  </tr>
+</table>
+
 ## Features
 
 - **Taskbar widget** with two lanes (top / bottom). Each module is built from items you choose: label, bar, slim bar, history graph, circle graph, core bars, percent, temperature, speeds, and your own sensor readouts.
 - **Modules**: CPU, GPU, Memory, Disks, Network, Sensors, plus adjustable spacers.
-- **Click popups** per module, with an Acrylic backdrop that follows the widget theme:
-  - CPU: per-core bars, history, frequency (all / efficiency / performance cores), top processes, uptime
-  - GPU: temperature, VRAM, clocks, fan, power, history, top GPU processes
-  - Memory: used / free / cache / commit / swap, history, top processes
-  - Disks: every drive, read / write history, top file-I/O processes, drive temperature
-  - Network: local IP, up / down history, connected adapters
-  - Sensors: every sensor LibreHardwareMonitor can read, grouped by hardware, live
+- **Click popups** per module (CPU, GPU, Memory, Disks, Network, Sensors) with an Acrylic backdrop that follows the widget theme: per-core bars, history, frequency, top processes, drives, adapters and every sensor.
 - **Sections page** in the settings turns each popup section on or off and sets how many processes are listed.
 - **Any sensor on the taskbar**: pick any temperature, fan, load, clock or power sensor for a readout, bar, graph or ring.
 - **Fluent settings window** (Mica) with drag-and-drop layout, font, size and weight, °C / °F, and rpm units.

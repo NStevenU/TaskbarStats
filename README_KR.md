@@ -17,17 +17,51 @@
   <img src="docs/widget.png" alt="작업표시줄 위젯">
 </p>
 
+## 소개
+
+TaskbarStats는 시스템 상태를 Windows 11 작업표시줄에 바로 보여 줍니다. 사용량, 온도, 팬 속도, 그 밖의 어떤 센서든 원하는 것을 골라 두 줄로 배치할 수 있습니다. 모듈을 클릭하면 코어별 부하, 상위 프로세스, 드라이브, 어댑터, 모든 센서 같은 상세 정보가 팝업으로 나타납니다. 화면에 보이는 것만 읽기 때문에 가볍고, 부트캠프 맥은 애플 SMC로 지원합니다.
+
+## 만든 이유
+
+macOS에는 예쁘고 기능이 다양한 모니터링 프로그램이 많습니다. 하지만 Windows에서는 기능이 부족하거나 자유도가 낮아서, 마음에 드는 프로그램을 찾지 못했습니다. 그래서 직접 만들게 되었습니다.
+
+아이디어는 macOS의 모니터링 프로그램들에서 영감을 받았습니다.
+
+## 팝업
+
+작업표시줄의 모듈을 클릭하면 팝업이 열립니다.
+
+<table>
+  <tr>
+    <td align="center" valign="top"><a href="docs/cpu.png"><img src="docs/cpu.png" width="250" alt="CPU"></a><br><sub>CPU</sub></td>
+    <td align="center" valign="top"><a href="docs/gpu.png"><img src="docs/gpu.png" width="250" alt="GPU"></a><br><sub>GPU</sub></td>
+    <td align="center" valign="top"><a href="docs/mem.png"><img src="docs/mem.png" width="250" alt="메모리"></a><br><sub>메모리</sub></td>
+  </tr>
+  <tr>
+    <td align="center" valign="top"><a href="docs/dsk.png"><img src="docs/dsk.png" width="250" alt="디스크"></a><br><sub>디스크</sub></td>
+    <td align="center" valign="top"><a href="docs/net.png"><img src="docs/net.png" width="250" alt="네트워크"></a><br><sub>네트워크</sub></td>
+    <td align="center" valign="top"><a href="docs/sen.png"><img src="docs/sen.png" width="250" alt="센서"></a><br><sub>센서</sub></td>
+  </tr>
+</table>
+
+## 설정
+
+<table>
+  <tr>
+    <td align="center" valign="top"><a href="docs/set-general.png"><img src="docs/set-general.png" width="420" alt="일반"></a><br><sub>일반</sub></td>
+    <td align="center" valign="top"><a href="docs/set-cpu.png"><img src="docs/set-cpu.png" width="420" alt="드래그 앤 드롭 모듈 구성"></a><br><sub>드래그 앤 드롭 모듈 구성</sub></td>
+  </tr>
+  <tr>
+    <td align="center" valign="top"><a href="docs/set-sen.png"><img src="docs/set-sen.png" width="420" alt="원하는 센서 선택"></a><br><sub>원하는 센서 선택</sub></td>
+    <td align="center" valign="top"><a href="docs/set-about.png"><img src="docs/set-about.png" width="420" alt="정보"></a><br><sub>정보</sub></td>
+  </tr>
+</table>
+
 ## 기능
 
 - **작업표시줄 위젯**: 위/아래 두 줄 배치. 모듈마다 라벨, 막대, 얇은 막대, 히스토리 그래프, 원형 그래프, 코어 막대, 퍼센트, 온도, 속도, 원하는 센서 값 등을 골라 구성합니다.
 - **모듈**: CPU, GPU, Memory, Disks, Network, Sensors, 그리고 간격을 조절하는 Space.
-- **모듈별 클릭 팝업**: Acrylic 배경이며 위젯의 라이트/다크 테마를 따릅니다.
-  - CPU: 코어별 막대, 히스토리, 주파수(전체 / 효율 / 성능 코어), 상위 프로세스, 업타임
-  - GPU: 온도, VRAM, 클럭, 팬, 전력, 히스토리, GPU 사용 프로세스
-  - Memory: 사용 / 여유 / 캐시 / 커밋 / 스왑, 히스토리, 메모리 많이 쓰는 프로세스
-  - Disks: 드라이브별 용량, 읽기 / 쓰기 히스토리, 파일 I/O 상위 프로세스, 드라이브 온도
-  - Network: 내부 IP, 다운 / 업 히스토리, 연결된 어댑터
-  - Sensors: LibreHardwareMonitor가 읽을 수 있는 모든 센서를 하드웨어별로 실시간 표시
+- **모듈별 클릭 팝업**(CPU, GPU, Memory, Disks, Network, Sensors): Acrylic 배경이며 위젯의 라이트/다크 테마를 따릅니다. 코어별 막대, 히스토리, 주파수, 상위 프로세스, 드라이브, 어댑터, 모든 센서를 보여 줍니다.
 - **Sections 설정 페이지**: 팝업 섹션을 켜고 끄고, 프로세스 표시 개수를 정합니다.
 - **어떤 센서든 작업표시줄에**: 온도, 팬, 부하, 클럭, 전력 센서를 골라 값, 막대, 그래프, 원형으로 표시합니다.
 - **Fluent 설정 창**(Mica): 드래그 앤 드롭 레이아웃, 글꼴·크기·굵기, °C / °F, rpm 단위.
