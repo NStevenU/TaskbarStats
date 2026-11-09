@@ -94,6 +94,11 @@ iscc /DAppVersion=1.0.0 /DSourceDir=..\publish installer\TaskbarStats.iss
 
 `v*` 태그를 푸시하면 GitHub Actions가 설치 프로그램과 포터블 zip을 만들어 릴리스에 첨부합니다.
 
+## 안내
+
+> [!NOTE]
+> TaskbarStats는 제가 쓰려고 만든 개인 취미 프로젝트입니다. 버그가 있을 수 있고 다른 하드웨어에서는 다르게 동작할 수 있으며, 정상 동작, 센서 값의 정확성, 문제 수정을 보장하지 않습니다. 관리자 권한으로 실행되고 선택적으로 PawnIO 드라이버를 설치하므로, 사용에 따른 책임은 사용자에게 있습니다. 개발과 테스트는 Intel + NVIDIA PC와 AMD Radeon 그래픽의 부트캠프 맥(온도 표시 확인)에서 했으며, 그 외 하드웨어는 검증하지 못했습니다. Apache License 2.0에 따라 어떠한 보증 없이 "있는 그대로" 제공됩니다.
+
 ## 라이선스
 
 Apache License 2.0 — Copyright 2026 NSteven. [LICENSE](LICENSE)와 [NOTICE](NOTICE)를 참고하세요.

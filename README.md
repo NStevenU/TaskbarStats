@@ -94,6 +94,11 @@ iscc /DAppVersion=1.0.0 /DSourceDir=..\publish installer\TaskbarStats.iss
 
 Pushing a `v*` tag builds the installer and portable zip on GitHub Actions and attaches them to the release.
 
+## Disclaimer
+
+> [!NOTE]
+> TaskbarStats is a personal hobby project I made for my own use. It may contain bugs or behave differently on other hardware, and I can't guarantee that it works, that sensor readings are accurate, or that issues will be fixed. It runs with administrator rights and can install the optional PawnIO driver, so please use it at your own risk. It was developed and tested on an Intel + NVIDIA PC and on a Boot Camp Mac with an AMD Radeon GPU (where temperatures are shown); other hardware is untested. Provided "as is" under the Apache License 2.0, without warranty of any kind.
+
 ## License
 
 Apache License 2.0 — Copyright 2026 NSteven. See [LICENSE](LICENSE) and [NOTICE](NOTICE).
