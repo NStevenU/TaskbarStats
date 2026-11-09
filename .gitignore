@@ -1,0 +1,5 @@
+bin/
+bin_dev/
+obj/
+publish/
+dist/

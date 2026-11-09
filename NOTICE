@@ -1,0 +1,24 @@
+TaskbarStats
+Copyright 2026 NSteven
+
+Licensed under the Apache License, Version 2.0 (see LICENSE).
+
+This product includes or uses the following third-party software. Their licenses are kept in the
+"licenses" folder next to the program.
+
+- LibreHardwareMonitor (LibreHardwareMonitorLib.dll) - Mozilla Public License 2.0
+  https://github.com/LibreHardwareMonitor/LibreHardwareMonitor
+  Used unmodified, as a library. Its own third-party notices (Aga.Controls: BSD; PawnIO.Modules: LGPL-2.1)
+  are in licenses/LibreHardwareMonitor-THIRD-PARTY-NOTICES.txt.
+- BlackSharp.Core, DiskInfoToolkit, RAMSPDToolkit-NDD (by Blacktempel) - Mozilla Public License 2.0
+  Libraries used by LibreHardwareMonitor, used unmodified.
+- HidSharp (James Bellinger) - Apache License 2.0
+- System.Management (Microsoft) - MIT License
+- Xanmono font (GGBotNet) - SIL Open Font License 1.1, used unmodified for the taskbar labels
+  (licenses/Xanmono-OFL.txt).
+
+PawnIO (namazso, GPL-2.0 with a linking exception) is a separate driver. It is not part of this product:
+the installer can optionally download the official installer from the PawnIO project and run it, and
+LibreHardwareMonitor uses the driver to read CPU and motherboard sensors. https://pawnio.eu
+
+Apple, NVIDIA, AMD, Intel and Windows are trademarks of their owners. This project is not affiliated with them.
