@@ -22,7 +22,7 @@ jobs:
           $v = if ($env:GITHUB_REF -like 'refs/tags/v*') { $env:GITHUB_REF_NAME.TrimStart('v') } else { '0.0.0-dev' }
           "version=$v" >> $env:GITHUB_OUTPUT
       - name: Publish (self-contained)
-        run: dotnet publish TaskbarStats.csproj -c Release -r win-x64 --self-contained -o publish
+        run: dotnet publish TaskbarStats.csproj -c Release -r win-x64 --self-contained -p:Version=${{ steps.v.outputs.version }} -o publish
       - name: Install Inno Setup
         run: choco install innosetup --no-progress -y
       - name: Build installer

@@ -933,8 +933,8 @@ internal sealed partial class SettingsForm
         y = RowsCard(g, x0, y, cw, new List<(string, string?, RowControl?)>
         {
             ("Made by NSteven", "TaskbarStats © 2026 NSteven. Apache License 2.0", null),
-            ("LibreHardwareMonitor", "Mozilla Public License 2.0. Sensor reading (with BlackSharp, DiskInfoToolkit, RAMSPDToolkit)", null),
-            ("PawnIO", "By namazso. GPL-2.0 with linking exception. Separate driver for CPU and motherboard sensors", null),
+            ("LibreHardwareMonitor", "MPL-2.0. Sensor reading, with its libraries", null),
+            ("PawnIO", "By namazso. GPL-2.0 + exception. Optional driver", null),
             ("System.Management", "Microsoft. MIT License", null),
             ("HidSharp", "Apache License 2.0", null),
             ("Xanmono", "By GGBotNet. SIL Open Font License 1.1. Taskbar label font", null),
